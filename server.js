@@ -34,8 +34,8 @@ app.get("/albums", (req, res) => {
 
 // SQL query to save new music into the the db
 app.post("/albums", (req, res) => {
-    const insertQuery = "INSERT INTO rapalbums SET ?";
-    db.query(insertQuery, (err, result) => {
+    const insertQuery = `${"INSERT INTO music_albums SET ?"}`
+    db.query(insertQuery, req.body, (err, result) => {
         if(err){
             console.log(err);
         } else {
@@ -44,9 +44,9 @@ app.post("/albums", (req, res) => {
     })
 })
 
-app.put("/albums", (req, res) => {
-    const updateQuery = "UPDATE rapalbums SET album_title = ?, album_sales = ?"
-    db.query(updateQuery, [req.body.album_title, req.body.album_sales, req.body.id], (err, result) => {
+app.put("/albums/:id", (req, res) => {
+    const updateQuery = "UPDATE music_albums SET album_title=?, artist_name=?, album_sales=? WHERE id =?"
+    db.query(updateQuery, [req.body.album_title, req.body.artist_name, req.body.album_sales, req.params.id], (err, result) => {
         if(err){
             console.log(err);
         } else {
@@ -64,3 +64,8 @@ app.delete('/albums/:id', (req, res) => {
         }
     })
 })
+
+
+
+
+// [req.body.album_title, req.body.artist_name, req.body.album_sales, req.params.id]
