@@ -39,7 +39,7 @@ app.post("/albums", (req, res) => {
         if(err){
             console.log(err);
         } else {
-            res.send("Review Added to Database")
+            res.send("Album Added to Database")
         }
     })
 })
